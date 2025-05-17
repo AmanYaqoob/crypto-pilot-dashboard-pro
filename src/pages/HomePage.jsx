@@ -44,6 +44,18 @@ export default function HomePage() {
               </Button>
             </div>
             
+            {/* Moving text animation - Powered by Blizon Technologies */}
+            <div className="w-full overflow-hidden mt-8 py-2 bg-primary/5 rounded-lg">
+              <div className="animate-marquee whitespace-nowrap">
+                <span className="mx-4 text-primary font-medium">Powered By Blizon Technologies</span>
+                <span className="mx-4">•</span>
+                <span className="mx-4 text-primary font-medium">Powered By Blizon Technologies</span>
+                <span className="mx-4">•</span>
+                <span className="mx-4 text-primary font-medium">Powered By Blizon Technologies</span>
+                <span className="mx-4">•</span>
+              </div>
+            </div>
+            
             <div className="mt-12 backdrop-blur-sm bg-card/30 border border-border rounded-xl p-6 w-full">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="flex flex-col items-center text-center">
@@ -73,7 +85,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Reduced hover effect */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Powerful Trading Features</h2>
@@ -113,7 +125,7 @@ export default function HomePage() {
             ].map((feature, index) => (
               <div 
                 key={index} 
-                className="bg-card border border-border rounded-lg p-6 transition-all hover:-translate-y-1 hover:shadow-lg glowing-border group"
+                className="bg-card border border-border rounded-lg p-6 transition-all hover:-translate-y-[3px] hover:shadow-md group"
               >
                 <div className="mb-4 text-primary group-hover:text-accent transition-colors">
                   {feature.icon}

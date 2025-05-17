@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -48,8 +48,25 @@ const navItems = [
 ];
 
 export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  // Check for stored sidebar state in localStorage
+  const storedSidebarState = localStorage.getItem('sidebarCollapsed');
+  const [collapsed, setCollapsed] = useState(storedSidebarState === 'true');
   const location = useLocation();
+
+  // Update localStorage whenever collapsed state changes
+  const toggleSidebar = () => {
+    const newState = !collapsed;
+    setCollapsed(newState);
+    localStorage.setItem('sidebarCollapsed', newState.toString());
+  };
+
+  // When component loads, ensure we check localStorage
+  useEffect(() => {
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState !== null) {
+      setCollapsed(savedState === 'true');
+    }
+  }, []);
 
   return (
     <div
@@ -77,7 +94,7 @@ export function Sidebar() {
         <Button 
           variant="ghost" 
           size="icon" 
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={toggleSidebar}
           className="text-sidebar-foreground hover:text-sidebar-primary-foreground hover:bg-sidebar-primary"
         >
           {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}

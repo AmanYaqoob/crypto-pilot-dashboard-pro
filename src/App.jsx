@@ -15,6 +15,9 @@ import DashboardPage from "./pages/DashboardPage";
 import AgentsPage from "./pages/AgentsPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import MarketInsightsPage from "./pages/MarketInsightsPage";
+import NotificationsPage from "./pages/NotificationsPage";
+import BillingPage from "./pages/BillingPage";
+import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,10 +38,11 @@ const App = () => (
               <Route path="/agents" element={<AgentsPage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
               <Route path="/insights" element={<MarketInsightsPage />} />
+              <Route path="/notifications" element={<NotificationsPage />} />
+              <Route path="/billing" element={<BillingPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="/notifications" element={<Navigate to="/dashboard?tab=notifications" replace />} />
-              <Route path="/billing" element={<Navigate to="/dashboard?tab=billing" replace />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>
