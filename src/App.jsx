@@ -22,6 +22,7 @@ import ProfilePage from "./pages/ProfilePage";
 import CreateAgentPage from "./pages/CreateAgentPage";
 import EditAgentPage from "./pages/EditAgentPage";
 import SettingsPage from "./pages/SettingsPage";
+import ApiKeysPage from "./pages/ApiKeysPage";
 import NotFound from "./pages/NotFound";
 
 // Create a new QueryClient instance
@@ -56,6 +57,7 @@ const App = () => (
               <Route path="/billing" element={<BillingPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/api-keys" element={<ApiKeysPage />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

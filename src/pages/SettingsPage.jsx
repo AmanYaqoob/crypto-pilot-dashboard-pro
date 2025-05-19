@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,9 +8,10 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTheme } from '@/contexts/ThemeContext';
-import { Moon, Sun, Laptop, Settings, BellRing, Eye, EyeOff } from 'lucide-react';
+import { Moon, Sun, Laptop, Settings, BellRing, Eye, EyeOff, Key } from 'lucide-react';
 import { toast } from 'sonner';
 import { Separator } from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
 
 export default function SettingsPage() {
   const { theme, changeTheme } = useTheme();
@@ -39,6 +39,9 @@ export default function SettingsPage() {
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
             <TabsTrigger value="appearance">Appearance</TabsTrigger>
             <TabsTrigger value="privacy">Privacy</TabsTrigger>
+            <TabsTrigger value="api" asChild>
+              <Link to="/api-keys">API Keys</Link>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="general" className="space-y-4">
@@ -79,6 +82,26 @@ export default function SettingsPage() {
                 </div>
 
                 <Button onClick={handleSaveSettings}>Save Settings</Button>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <div>
+                  <CardTitle>API Keys</CardTitle>
+                  <CardDescription>Manage your API access tokens</CardDescription>
+                </div>
+                <Key className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Create and manage API keys to integrate with our platform programmatically.
+                </p>
+                <Button asChild>
+                  <Link to="/api-keys" className="gap-2">
+                    <Key className="h-4 w-4" /> Manage API Keys
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
           </TabsContent>

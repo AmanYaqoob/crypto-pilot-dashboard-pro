@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -43,7 +44,7 @@ export default function BillingPage() {
     {
       id: 'enterprise',
       name: 'Enterprise',
-      price: 'Custom',
+      price: null,
       billingPeriod: 'monthly',
       description: 'For institutional traders and professional firms',
       features: [
@@ -126,10 +127,16 @@ export default function BillingPage() {
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold">
-                      ${currentPlanData.price}
-                      <span className="text-sm font-normal text-muted-foreground">
-                        /{currentPlanData.billingPeriod}
-                      </span>
+                      {currentPlanData.price !== null ? (
+                        <>
+                          ${currentPlanData.price}
+                          <span className="text-sm font-normal text-muted-foreground">
+                            /{currentPlanData.billingPeriod}
+                          </span>
+                        </>
+                      ) : (
+                        <span>Contact Sales</span>
+                      )}
                     </div>
                     <p className="text-sm text-muted-foreground">Next billing cycle: June 1, 2025</p>
                   </div>
@@ -178,8 +185,14 @@ export default function BillingPage() {
                     <CardHeader>
                       <CardTitle>{plan.name}</CardTitle>
                       <div className="mt-1">
-                        <span className="text-2xl font-bold">${plan.price}</span>
-                        <span className="text-sm text-muted-foreground">/{plan.billingPeriod}</span>
+                        {plan.price !== null ? (
+                          <>
+                            <span className="text-2xl font-bold">${plan.price}</span>
+                            <span className="text-sm text-muted-foreground">/{plan.billingPeriod}</span>
+                          </>
+                        ) : (
+                          <span className="text-xl font-bold">Contact Sales</span>
+                        )}
                       </div>
                       <CardDescription className="mt-1.5">{plan.description}</CardDescription>
                     </CardHeader>
