@@ -9,9 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { Shield, Download, Key, Lock, UserCircle, LogOut, User, Mail, AlertTriangle } from 'lucide-react';
+import { Shield, Key, Lock, UserCircle, LogOut, User, Mail } from 'lucide-react';
 
 export default function ProfilePage() {
   const [formData, setFormData] = useState({
@@ -60,16 +59,10 @@ export default function ProfilePage() {
     }
   };
 
-  const handleDataExport = () => {
-    toast.success('Your data export has been initiated', {
-      description: 'You will receive an email when your data is ready to download.'
-    });
-  };
-
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold">Profile & Settings</h1>
+        <h1 className="text-3xl font-bold font-heading">Profile & Settings</h1>
         
         <div className="flex flex-col md:flex-row gap-6">
           {/* Left sidebar with user info */}
@@ -83,7 +76,7 @@ export default function ProfilePage() {
                       <User className="h-12 w-12" />
                     </AvatarFallback>
                   </Avatar>
-                  <h2 className="text-xl font-bold mt-4">{formData.name}</h2>
+                  <h2 className="text-xl font-bold mt-4 font-heading">{formData.name}</h2>
                   <p className="text-muted-foreground">{formData.email}</p>
                   
                   <div className="mt-4 flex flex-col w-full space-y-2">
@@ -109,16 +102,15 @@ export default function ProfilePage() {
           {/* Right side tabs with settings */}
           <div className="flex-1">
             <Tabs defaultValue="profile">
-              <TabsList className="grid grid-cols-3 w-full">
+              <TabsList className="grid grid-cols-2 w-full">
                 <TabsTrigger value="profile">Profile</TabsTrigger>
                 <TabsTrigger value="security">Security</TabsTrigger>
-                <TabsTrigger value="data">Data</TabsTrigger>
               </TabsList>
               
               <TabsContent value="profile" className="space-y-4 pt-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Personal Information</CardTitle>
+                    <CardTitle className="font-heading">Personal Information</CardTitle>
                     <CardDescription>
                       Update your personal details
                     </CardDescription>
@@ -155,7 +147,7 @@ export default function ProfilePage() {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Change Password</CardTitle>
+                    <CardTitle className="font-heading">Change Password</CardTitle>
                     <CardDescription>
                       Update your account password
                     </CardDescription>
@@ -205,7 +197,7 @@ export default function ProfilePage() {
               <TabsContent value="security" className="space-y-4 pt-4">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-center font-heading">
                       <Shield className="mr-2 h-5 w-5" />
                       Two-Factor Authentication
                     </CardTitle>
@@ -237,7 +229,7 @@ export default function ProfilePage() {
                 
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center">
+                    <CardTitle className="flex items-center font-heading">
                       <Key className="mr-2 h-5 w-5" />
                       API Keys
                     </CardTitle>
@@ -271,67 +263,6 @@ export default function ProfilePage() {
                     <Button variant="outline" size="sm" className="w-full">
                       <Key className="mr-2 h-4 w-4" /> Add New API Key
                     </Button>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              
-              <TabsContent value="data" className="space-y-4 pt-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Data Export</CardTitle>
-                    <CardDescription>
-                      Download all your data
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-sm">
-                      You can export all your data including trading history, portfolio performance, 
-                      and agent configurations. The export will be delivered to your email address 
-                      within 24 hours.
-                    </p>
-                    <Button onClick={handleDataExport} variant="outline" className="w-full">
-                      <Download className="mr-2 h-4 w-4" /> Request Data Export
-                    </Button>
-                  </CardContent>
-                </Card>
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-destructive flex items-center">
-                      <AlertTriangle className="mr-2 h-5 w-5" />
-                      Delete Account
-                    </CardTitle>
-                    <CardDescription>
-                      Permanently delete your account and all data
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm mb-4">
-                      This action cannot be undone. It will permanently delete your account, 
-                      all trading agents, portfolio data, and personal information from our servers.
-                    </p>
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button variant="destructive" className="w-full">
-                          Delete Account
-                        </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete your account
-                            and remove your data from our servers.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction variant="destructive">
-                            Yes, delete my account
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
                   </CardContent>
                 </Card>
               </TabsContent>

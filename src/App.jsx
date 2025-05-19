@@ -19,6 +19,8 @@ import MarketInsightsPage from "./pages/MarketInsightsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import BillingPage from "./pages/BillingPage";
 import ProfilePage from "./pages/ProfilePage";
+import CreateAgentPage from "./pages/CreateAgentPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,11 +40,13 @@ const App = () => (
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/agents" element={<AgentsPage />} />
+                <Route path="/agents/create" element={<CreateAgentPage />} />
                 <Route path="/portfolio" element={<PortfolioPage />} />
                 <Route path="/insights" element={<MarketInsightsPage />} />
                 <Route path="/notifications" element={<NotificationsPage />} />
                 <Route path="/billing" element={<BillingPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/settings" element={<SettingsPage />} />
                 
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

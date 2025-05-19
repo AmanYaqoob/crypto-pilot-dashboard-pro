@@ -12,6 +12,8 @@ import {
   TrendingUp,
   Bell,
   CreditCard,
+  Settings,
+  User,
 } from 'lucide-react';
 
 const navItems = [
@@ -44,6 +46,16 @@ const navItems = [
     name: 'Billing',
     href: '/billing',
     icon: CreditCard,
+  },
+  {
+    name: 'Profile',
+    href: '/profile',
+    icon: User,
+  },
+  {
+    name: 'Settings',
+    href: '/settings',
+    icon: Settings,
   },
 ];
 
@@ -82,7 +94,7 @@ export function Sidebar() {
               <span className="sr-only">Crypto Pilot</span>
               <span className="inline-block">🚀</span>
             </div>
-            <span className="text-sidebar-foreground font-bold">Crypto Pilot</span>
+            <span className="text-sidebar-foreground font-bold font-heading">Crypto Pilot</span>
           </Link>
         )}
         {collapsed && (
@@ -115,7 +127,7 @@ export function Sidebar() {
             )}
           >
             <item.icon size={20} />
-            {!collapsed && <span>{item.name}</span>}
+            {!collapsed && <span className="font-medium">{item.name}</span>}
           </Link>
         ))}
       </nav>
