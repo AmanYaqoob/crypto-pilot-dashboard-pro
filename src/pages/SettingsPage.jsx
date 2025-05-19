@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useTheme } from '@/contexts/ThemeContext';
 import { Moon, Sun, Laptop, Settings, BellRing, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
+import { Separator } from '@/components/ui/separator';
 
 export default function SettingsPage() {
   const { theme, changeTheme } = useTheme();
@@ -28,7 +29,7 @@ export default function SettingsPage() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold font-heading">Settings</h1>
+          <h1 className="text-3xl font-bold">Settings</h1>
           <p className="text-muted-foreground">Customize your platform experience</p>
         </div>
 
@@ -43,7 +44,7 @@ export default function SettingsPage() {
           <TabsContent value="general" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading">General Settings</CardTitle>
+                <CardTitle>General Settings</CardTitle>
                 <CardDescription>Configure your basic account preferences</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -85,7 +86,7 @@ export default function SettingsPage() {
           <TabsContent value="notifications" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading">Notification Preferences</CardTitle>
+                <CardTitle>Notification Preferences</CardTitle>
                 <CardDescription>Control how you receive notifications</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -145,41 +146,73 @@ export default function SettingsPage() {
           <TabsContent value="appearance" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading">Theme Settings</CardTitle>
+                <CardTitle>Theme Settings</CardTitle>
                 <CardDescription>Customize how the application looks</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid gap-4">
-                  <div className="space-y-1">
-                    <Label>Theme Mode</Label>
-                    <div className="grid grid-cols-3 gap-2">
-                      <Button
-                        variant={theme === 'default' ? 'default' : 'outline'}
-                        className="flex flex-col items-center justify-center gap-2 p-4"
-                        onClick={() => changeTheme('default')}
-                      >
-                        <Moon className="h-5 w-5" />
-                        <span>Dark</span>
-                      </Button>
+              <CardContent className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Dark Themes</h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    <Button
+                      variant={theme === 'dark-default' ? 'default' : 'outline'}
+                      className="flex flex-col items-center justify-center gap-2 p-4 h-auto"
+                      onClick={() => changeTheme('dark-default')}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-indigo-500 mb-1"></div>
+                      <span>Default Dark</span>
+                    </Button>
 
-                      <Button
-                        variant={theme === 'light' ? 'default' : 'outline'}
-                        className="flex flex-col items-center justify-center gap-2 p-4"
-                        onClick={() => changeTheme('light')}
-                      >
-                        <Sun className="h-5 w-5" />
-                        <span>Light</span>
-                      </Button>
+                    <Button
+                      variant={theme === 'dark-purple' ? 'default' : 'outline'}
+                      className="flex flex-col items-center justify-center gap-2 p-4 h-auto"
+                      onClick={() => changeTheme('dark-purple')}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-purple-500 mb-1"></div>
+                      <span>Purple Dark</span>
+                    </Button>
 
-                      <Button
-                        variant={theme === 'high-contrast' ? 'default' : 'outline'}
-                        className="flex flex-col items-center justify-center gap-2 p-4"
-                        onClick={() => changeTheme('high-contrast')}
-                      >
-                        <Laptop className="h-5 w-5" />
-                        <span>High Contrast</span>
-                      </Button>
-                    </div>
+                    <Button
+                      variant={theme === 'dark-green' ? 'default' : 'outline'}
+                      className="flex flex-col items-center justify-center gap-2 p-4 h-auto"
+                      onClick={() => changeTheme('dark-green')}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-green-500 mb-1"></div>
+                      <span>Green Dark</span>
+                    </Button>
+                  </div>
+                </div>
+                
+                <Separator />
+                
+                <div>
+                  <h3 className="text-lg font-medium mb-3">Light Themes</h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    <Button
+                      variant={theme === 'light-default' ? 'default' : 'outline'}
+                      className="flex flex-col items-center justify-center gap-2 p-4 h-auto"
+                      onClick={() => changeTheme('light-default')}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-indigo-300 mb-1"></div>
+                      <span>Default Light</span>
+                    </Button>
+
+                    <Button
+                      variant={theme === 'light-blue' ? 'default' : 'outline'}
+                      className="flex flex-col items-center justify-center gap-2 p-4 h-auto"
+                      onClick={() => changeTheme('light-blue')}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-blue-300 mb-1"></div>
+                      <span>Blue Light</span>
+                    </Button>
+
+                    <Button
+                      variant={theme === 'light-warm' ? 'default' : 'outline'}
+                      className="flex flex-col items-center justify-center gap-2 p-4 h-auto"
+                      onClick={() => changeTheme('light-warm')}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-amber-300 mb-1"></div>
+                      <span>Warm Light</span>
+                    </Button>
                   </div>
                 </div>
               </CardContent>
@@ -189,7 +222,7 @@ export default function SettingsPage() {
           <TabsContent value="privacy" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle className="font-heading">Privacy Settings</CardTitle>
+                <CardTitle>Privacy Settings</CardTitle>
                 <CardDescription>Control your data and privacy preferences</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">

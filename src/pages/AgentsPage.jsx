@@ -99,6 +99,10 @@ export default function AgentsPage() {
     navigate('/agents/create');
   };
 
+  const handleEditAgent = (id) => {
+    navigate(`/agents/edit/${id}`);
+  };
+
   const getTypeIcon = (type) => {
     switch (type) {
       case 'trade':
@@ -127,7 +131,7 @@ export default function AgentsPage() {
     <DashboardLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold font-heading">My Agents</h1>
+          <h1 className="text-2xl font-bold">My Agents</h1>
           <Button onClick={handleCreateAgent}>
             <Plus className="mr-2 h-4 w-4" />
             Create Agent
@@ -160,7 +164,7 @@ export default function AgentsPage() {
                       {getTypeIcon(agent.type)}
                     </div>
                     <div>
-                      <CardTitle className="text-base font-heading">{agent.name}</CardTitle>
+                      <CardTitle className="text-base">{agent.name}</CardTitle>
                       {agent.symbol && (
                         <Badge variant="outline" className="mt-1">
                           {agent.symbol}
@@ -197,8 +201,9 @@ export default function AgentsPage() {
                       </>
                     )}
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Edit className="h-3.5 w-3.5" />
+                  <Button variant="outline" size="sm" onClick={() => handleEditAgent(agent.id)}>
+                    <Edit className="h-3.5 w-3.5 mr-1" />
+                    Edit
                   </Button>
                 </div>
               </CardContent>
@@ -214,7 +219,7 @@ export default function AgentsPage() {
               <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <Plus className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-medium font-heading mb-2">Create New Agent</h3>
+              <h3 className="font-medium mb-2">Create New Agent</h3>
               <p className="text-sm text-muted-foreground">
                 Set up a new AI agent for trading, portfolio management or market intelligence
               </p>

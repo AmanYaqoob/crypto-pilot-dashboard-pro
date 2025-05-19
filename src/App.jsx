@@ -20,6 +20,7 @@ import NotificationsPage from "./pages/NotificationsPage";
 import BillingPage from "./pages/BillingPage";
 import ProfilePage from "./pages/ProfilePage";
 import CreateAgentPage from "./pages/CreateAgentPage";
+import EditAgentPage from "./pages/EditAgentPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
@@ -42,6 +43,7 @@ const App = () => (
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/agents" element={<AgentsPage />} />
                 <Route path="/agents/create" element={<CreateAgentPage />} />
+                <Route path="/agents/edit/:id" element={<EditAgentPage />} />
                 <Route path="/portfolio" element={<PortfolioPage />} />
                 <Route path="/insights" element={<MarketInsightsPage />} />
                 <Route path="/notifications" element={<NotificationsPage />} />

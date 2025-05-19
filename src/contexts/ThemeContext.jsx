@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('default');
+  const [theme, setTheme] = useState('dark-default');
 
   // Check for stored theme preference
   useEffect(() => {
@@ -14,7 +14,7 @@ export const ThemeProvider = ({ children }) => {
       document.documentElement.setAttribute('data-theme', storedTheme);
     } else {
       // Set default theme
-      document.documentElement.setAttribute('data-theme', 'default');
+      document.documentElement.setAttribute('data-theme', 'dark-default');
     }
   }, []);
 
