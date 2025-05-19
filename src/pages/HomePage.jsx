@@ -1,19 +1,9 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/layout/Header';
-import {
-  ArrowRight,
-  BarChart3,
-  Shield,
-  ArrowUpRight,
-  Settings,
-  Clock,
-} from 'lucide-react';
-
+import { ArrowRight, BarChart3, Shield, ArrowUpRight, Settings, Clock } from 'lucide-react';
 export default function HomePage() {
-  return (
-    <div className="min-h-screen flex flex-col">
+  return <div className="min-h-screen flex flex-col">
       <Header />
       
       {/* Hero Section */}
@@ -23,7 +13,9 @@ export default function HomePage() {
         
         {/* Animated spheres - for visual effect */}
         <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-primary/10 filter blur-3xl animate-pulse-glow"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl animate-pulse-glow" style={{animationDelay: '1s'}}></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/20 filter blur-3xl animate-pulse-glow" style={{
+        animationDelay: '1s'
+      }}></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
@@ -91,49 +83,37 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Powerful Trading Features</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Intelligent Agents",
-                description: "Create and deploy AI agents with specific trading strategies and risk profiles",
-                icon: <Settings className="h-8 w-8" />
-              },
-              {
-                title: "Real-Time Portfolio",
-                description: "Track your portfolio performance with comprehensive analytics and visualizations",
-                icon: <BarChart3 className="h-8 w-8" />
-              },
-              {
-                title: "Market Intelligence",
-                description: "Leverage AI-powered market analysis to identify trading opportunities",
-                icon: <ArrowUpRight className="h-8 w-8" />
-              },
-              {
-                title: "24/7 Monitoring",
-                description: "Your agents work around the clock, even when you're not actively trading",
-                icon: <Clock className="h-8 w-8" />
-              },
-              {
-                title: "Custom Strategies",
-                description: "Define your own trading strategies or choose from pre-built templates",
-                icon: <Settings className="h-8 w-8" />
-              },
-              {
-                title: "Secure Platform",
-                description: "Enterprise-grade security keeps your assets and strategies safe",
-                icon: <Shield className="h-8 w-8" />
-              },
-            ].map((feature, index) => (
-              <div 
-                key={index} 
-                className="bg-card border border-border rounded-lg p-6 transition-all hover:-translate-y-[3px] hover:shadow-md group"
-              >
+            {[{
+            title: "Intelligent Agents",
+            description: "Create and deploy AI agents with specific trading strategies and risk profiles",
+            icon: <Settings className="h-8 w-8" />
+          }, {
+            title: "Real-Time Portfolio",
+            description: "Track your portfolio performance with comprehensive analytics and visualizations",
+            icon: <BarChart3 className="h-8 w-8" />
+          }, {
+            title: "Market Intelligence",
+            description: "Leverage AI-powered market analysis to identify trading opportunities",
+            icon: <ArrowUpRight className="h-8 w-8" />
+          }, {
+            title: "24/7 Monitoring",
+            description: "Your agents work around the clock, even when you're not actively trading",
+            icon: <Clock className="h-8 w-8" />
+          }, {
+            title: "Custom Strategies",
+            description: "Define your own trading strategies or choose from pre-built templates",
+            icon: <Settings className="h-8 w-8" />
+          }, {
+            title: "Secure Platform",
+            description: "Enterprise-grade security keeps your assets and strategies safe",
+            icon: <Shield className="h-8 w-8" />
+          }].map((feature, index) => <div key={index} className="bg-card border border-border rounded-lg p-6 transition-all hover:-translate-y-[3px] hover:shadow-md group">
                 <div className="mb-4 text-primary group-hover:text-accent transition-colors">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
                 <p className="text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -237,7 +217,7 @@ export default function HomePage() {
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
                 <div className="mb-4">
-                  <span className="text-4xl font-bold">$199</span>
+                  <span className="font-bold text-3xl">Custom</span>
                   <span className="text-muted-foreground">/month</span>
                 </div>
                 <p className="text-muted-foreground mb-6">For institutional traders and professional firms</p>
@@ -338,6 +318,5 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 }
