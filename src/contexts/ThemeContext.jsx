@@ -6,28 +6,23 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('default');
 
-  const changeTheme = (newTheme) => {
-    setTheme(newTheme);
-    
-    // Remove all existing theme classes
-    document.documentElement.classList.remove('theme-light', 'theme-high-contrast');
-    
-    // Add the new theme class if it's not the default
-    if (newTheme !== 'default') {
-      document.documentElement.classList.add(`theme-${newTheme}`);
-    }
-    
-    // Save to localStorage
-    localStorage.setItem('cryptoPilot-theme', newTheme);
-  };
-
+  // Check for stored theme preference
   useEffect(() => {
-    // Load theme from localStorage on initial render
-    const savedTheme = localStorage.getItem('cryptoPilot-theme');
-    if (savedTheme) {
-      changeTheme(savedTheme);
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+      document.documentElement.setAttribute('data-theme', storedTheme);
+    } else {
+      // Set default theme
+      document.documentElement.setAttribute('data-theme', 'default');
     }
   }, []);
+
+  const changeTheme = (newTheme) => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, changeTheme }}>
