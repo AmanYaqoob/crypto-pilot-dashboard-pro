@@ -43,21 +43,30 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="h-8 gap-1">
-              {theme === 'default' && <Moon size={16} />}
-              {theme === 'light' && <Sun size={16} />}
-              {theme === 'high-contrast' && <Laptop size={16} />}
+              {theme.startsWith('dark') && <Moon size={16} />}
+              {theme.startsWith('light') && <Sun size={16} />}
               <span className="hidden md:inline">Theme</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => changeTheme('default')} className="gap-2">
-              <Moon size={16} /> Dark
+            <DropdownMenuItem onClick={() => changeTheme('dark-default')} className="gap-2">
+              <Moon size={16} /> Dark Default
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => changeTheme('light')} className="gap-2">
-              <Sun size={16} /> Light
+            <DropdownMenuItem onClick={() => changeTheme('dark-purple')} className="gap-2">
+              <Moon size={16} /> Dark Purple
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => changeTheme('high-contrast')} className="gap-2">
-              <Laptop size={16} /> High Contrast
+            <DropdownMenuItem onClick={() => changeTheme('dark-green')} className="gap-2">
+              <Moon size={16} /> Dark Green
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => changeTheme('light-default')} className="gap-2">
+              <Sun size={16} /> Light Default
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => changeTheme('light-blue')} className="gap-2">
+              <Sun size={16} /> Light Blue
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => changeTheme('light-warm')} className="gap-2">
+              <Sun size={16} /> Light Warm
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

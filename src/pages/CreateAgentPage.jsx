@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,34 +12,35 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
-import { ArrowLeft, Cpu, BarChart3, Brain, Check, AlertTriangle, ArrowRight } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 export default function CreateAgentPage() {
   const navigate = useNavigate();
+  
+  // Form states
   const [agentType, setAgentType] = useState('trade');
   const [agentName, setAgentName] = useState('');
-  const [symbol, setSymbol] = useState('BTC');
   const [description, setDescription] = useState('');
-  const [strategy, setStrategy] = useState('momentum');
-  const [timeframe, setTimeframe] = useState('4h');
+  const [symbol, setSymbol] = useState('');
+  const [strategy, setStrategy] = useState('');
+  const [timeframe, setTimeframe] = useState('');
   const [riskLevel, setRiskLevel] = useState([50]);
   const [advanced, setAdvanced] = useState(false);
-  const [step, setStep] = useState(1);
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    if (!agentName) {
+      toast.error('Please provide a name for your agent');
+      return;
+    }
+    
+    // Create agent logic would go here
     toast.success('Agent created successfully!');
     navigate('/agents');
   };
-  
-  const nextStep = () => {
-    if (step < 3) setStep(step + 1);
-  };
-  
-  const prevStep = () => {
-    if (step > 1) setStep(step - 1);
-  };
-  
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -51,138 +51,139 @@ export default function CreateAgentPage() {
           </Button>
         </div>
         
-        <h1 className="text-3xl font-bold font-heading">Create New Agent</h1>
-        <p className="text-muted-foreground">Configure your AI-powered trading or analysis agent</p>
+        <div>
+          <h1 className="text-3xl font-bold">Create New Agent</h1>
+          <p className="text-muted-foreground">Set up an AI-powered trading or analysis agent</p>
+        </div>
         
-        <div className="relative">
-          {/* Progress Steps */}
-          <div className="w-full mb-8">
-            <div className="flex justify-between items-center">
-              <div className="flex flex-col items-center">
-                <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center ${step >= 1 ? 'bg-primary border-primary text-primary-foreground' : 'border-muted bg-background'}`}>
-                  {step > 1 ? <Check className="h-5 w-5" /> : "1"}
-                </div>
-                <span className="text-xs mt-2">Type</span>
-              </div>
-              <div className="flex-1 h-px bg-border mx-2"></div>
-              <div className="flex flex-col items-center">
-                <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center ${step >= 2 ? 'bg-primary border-primary text-primary-foreground' : 'border-muted bg-background'}`}>
-                  {step > 2 ? <Check className="h-5 w-5" /> : "2"}
-                </div>
-                <span className="text-xs mt-2">Configure</span>
-              </div>
-              <div className="flex-1 h-px bg-border mx-2"></div>
-              <div className="flex flex-col items-center">
-                <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center ${step >= 3 ? 'bg-primary border-primary text-primary-foreground' : 'border-muted bg-background'}`}>
-                  3
-                </div>
-                <span className="text-xs mt-2">Review</span>
-              </div>
-            </div>
-          </div>
+        <Card>
+          <form onSubmit={handleSubmit}>
+            <CardHeader>
+              <CardTitle>Agent Configuration</CardTitle>
+              <CardDescription>Configure your new AI agent</CardDescription>
+            </CardHeader>
+            
+            <CardContent className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <Label>Agent Type</Label>
+                  <RadioGroup
+                    value={agentType}
+                    onValueChange={setAgentType}
+                    className="grid grid-cols-3 gap-4 mt-2"
+                  >
+                    <div>
+                      <RadioGroupItem value="trade" id="trade" className="peer sr-only" />
+                      <Label
+                        htmlFor="trade"
+                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-muted hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                      >
+                        <div className="mb-2 p-2 rounded-full bg-primary/10">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-6 w-6"
+                          >
+                            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+                            <path d="M12 12v9"></path>
+                            <path d="m8 17 4 4 4-4"></path>
+                          </svg>
+                        </div>
+                        <div className="font-medium">Trader</div>
+                        <div className="text-xs text-muted-foreground text-center mt-1">
+                          Executes crypto trades based on strategy
+                        </div>
+                      </Label>
+                    </div>
 
-          {step === 1 && (
-            <Card className="border-2 border-muted">
-              <CardHeader>
-                <CardTitle className="font-heading">Select Agent Type</CardTitle>
-                <CardDescription>Choose what kind of agent you want to create</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <RadioGroup value={agentType} onValueChange={setAgentType} className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <RadioGroupItem
-                      value="trade"
-                      id="trade"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="trade"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <Cpu className="mb-3 h-6 w-6" />
-                      <div className="font-medium">Trading Agent</div>
-                      <p className="text-sm text-center text-muted-foreground">
-                        Automates buying and selling based on rules and signals
-                      </p>
-                    </Label>
-                  </div>
-                  
-                  <div>
-                    <RadioGroupItem
-                      value="portfolio"
-                      id="portfolio"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="portfolio"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <BarChart3 className="mb-3 h-6 w-6" />
-                      <div className="font-medium">Portfolio Manager</div>
-                      <p className="text-sm text-center text-muted-foreground">
-                        Monitors and rebalances your holdings
-                      </p>
-                    </Label>
-                  </div>
-                  
-                  <div>
-                    <RadioGroupItem
-                      value="intel"
-                      id="intel"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="intel"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <Brain className="mb-3 h-6 w-6" />
-                      <div className="font-medium">Market Intelligence</div>
-                      <p className="text-sm text-center text-muted-foreground">
-                        Analyzes trends and provides insights
-                      </p>
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </CardContent>
-              <CardFooter className="flex justify-end">
-                <Button onClick={nextStep}>
-                  Continue <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          )}
+                    <div>
+                      <RadioGroupItem value="portfolio" id="portfolio" className="peer sr-only" />
+                      <Label
+                        htmlFor="portfolio"
+                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-muted hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                      >
+                        <div className="mb-2 p-2 rounded-full bg-primary/10">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-6 w-6"
+                          >
+                            <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                            <line x1="2" x2="22" y1="10" y2="10"></line>
+                          </svg>
+                        </div>
+                        <div className="font-medium">Portfolio</div>
+                        <div className="text-xs text-muted-foreground text-center mt-1">
+                          Manages asset allocation and rebalancing
+                        </div>
+                      </Label>
+                    </div>
 
-          {step === 2 && (
-            <Card className="border-2 border-muted">
-              <CardHeader>
-                <CardTitle className="font-heading">Configure Your Agent</CardTitle>
-                <CardDescription>Set up the parameters for your {agentType} agent</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="agent-name">Agent Name</Label>
-                    <Input
-                      id="agent-name"
-                      placeholder={agentType === 'trade' ? "BTC Momentum Trader" : agentType === 'portfolio' ? "Daily Rebalancer" : "Trend Analyzer"}
-                      value={agentName}
-                      onChange={(e) => setAgentName(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="description">Description (Optional)</Label>
-                    <Textarea
-                      id="description"
-                      placeholder="Describe what this agent does..."
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  </div>
+                    <div>
+                      <RadioGroupItem value="intel" id="intel" className="peer sr-only" />
+                      <Label
+                        htmlFor="intel"
+                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-muted hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                      >
+                        <div className="mb-2 p-2 rounded-full bg-primary/10">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-6 w-6"
+                          >
+                            <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"></path>
+                            <line x1="2" x2="22" y1="10" y2="10"></line>
+                          </svg>
+                        </div>
+                        <div className="font-medium">Intelligence</div>
+                        <div className="text-xs text-muted-foreground text-center mt-1">
+                          Analyzes market data and provides insights
+                        </div>
+                      </Label>
+                    </div>
+                  </RadioGroup>
                 </div>
-                
-                {agentType === 'trade' && (
-                  <>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="agent-name">Agent Name</Label>
+                  <Input
+                    id="agent-name"
+                    placeholder="My Trading Bot"
+                    value={agentName}
+                    onChange={(e) => setAgentName(e.target.value)}
+                  />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    placeholder="What does this agent do?"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+              </div>
+              
+              {agentType === 'trade' && (
+                <>
+                  <Separator />
+                  <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="symbol">Symbol</Label>
                       <Select value={symbol} onValueChange={setSymbol}>
@@ -229,165 +230,70 @@ export default function CreateAgentPage() {
                         </SelectContent>
                       </Select>
                     </div>
-                  </>
-                )}
-                
-                {agentType === 'portfolio' && (
-                  <>
-                    <div className="grid gap-2">
-                      <Label htmlFor="rebalance-frequency">Rebalancing Frequency</Label>
-                      <Select defaultValue="daily">
-                        <SelectTrigger id="rebalance-frequency">
-                          <SelectValue placeholder="Select frequency" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="hourly">Hourly</SelectItem>
-                          <SelectItem value="daily">Daily</SelectItem>
-                          <SelectItem value="weekly">Weekly</SelectItem>
-                          <SelectItem value="monthly">Monthly</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </>
-                )}
-                
-                {agentType === 'intel' && (
-                  <>
-                    <div className="grid gap-2">
-                      <Label htmlFor="data-sources">Data Sources</Label>
-                      <Select defaultValue="all">
-                        <SelectTrigger id="data-sources">
-                          <SelectValue placeholder="Select data sources" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All Sources</SelectItem>
-                          <SelectItem value="price">Price Data Only</SelectItem>
-                          <SelectItem value="sentiment">Social Sentiment</SelectItem>
-                          <SelectItem value="news">News Analysis</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </>
-                )}
-                
-                <div className="grid gap-2">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="risk-level">Risk Level</Label>
-                    <span className="text-sm">{riskLevel}%</span>
                   </div>
-                  <Slider
-                    id="risk-level"
-                    min={0}
-                    max={100}
-                    step={1}
-                    value={riskLevel}
-                    onValueChange={setRiskLevel}
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>Conservative</span>
-                    <span>Aggressive</span>
-                  </div>
+                </>
+              )}
+              
+              <Separator />
+              
+              <div className="grid gap-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="risk-level">Risk Level</Label>
+                  <span className="text-sm">{riskLevel}%</span>
                 </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Switch id="advanced" checked={advanced} onCheckedChange={setAdvanced} />
-                  <Label htmlFor="advanced">Advanced Configuration</Label>
+                <Slider
+                  id="risk-level"
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={riskLevel}
+                  onValueChange={setRiskLevel}
+                />
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>Conservative</span>
+                  <span>Aggressive</span>
                 </div>
-                
-                {advanced && (
-                  <div className="rounded-md border p-4 space-y-4">
-                    <div className="text-sm font-medium">Advanced Settings</div>
-                    <div className="grid gap-2">
-                      <Label>Custom Parameters</Label>
-                      <Textarea placeholder="Enter JSON configuration..." />
-                      <p className="text-xs text-muted-foreground">
-                        For advanced users. Enter custom JSON parameters for fine-tuning.
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={prevStep}>
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                </Button>
-                <Button onClick={nextStep}>
-                  Continue <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          )}
-
-          {step === 3 && (
-            <Card className="border-2 border-muted">
-              <CardHeader>
-                <CardTitle className="font-heading">Review & Create</CardTitle>
-                <CardDescription>Review your agent configuration before creating</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="rounded-md bg-muted p-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-sm font-medium">Agent Type</p>
-                      <p className="text-sm text-muted-foreground capitalize">{agentType}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Name</p>
-                      <p className="text-sm text-muted-foreground">{agentName || "Unnamed Agent"}</p>
-                    </div>
-                    
-                    {agentType === 'trade' && (
-                      <>
-                        <div>
-                          <p className="text-sm font-medium">Symbol</p>
-                          <p className="text-sm text-muted-foreground">{symbol}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium">Strategy</p>
-                          <p className="text-sm text-muted-foreground capitalize">{strategy}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium">Timeframe</p>
-                          <p className="text-sm text-muted-foreground">{timeframe}</p>
-                        </div>
-                      </>
-                    )}
-                    
-                    <div>
-                      <p className="text-sm font-medium">Risk Level</p>
-                      <p className="text-sm text-muted-foreground">{riskLevel}%</p>
-                    </div>
-                  </div>
-                  
-                  {description && (
-                    <div className="mt-4">
-                      <p className="text-sm font-medium">Description</p>
-                      <p className="text-sm text-muted-foreground">{description}</p>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex items-center p-4 rounded-md bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-400">
-                  <AlertTriangle className="h-5 w-5 mr-2 flex-shrink-0" />
-                  <div className="text-sm">
-                    <p className="font-medium">Important Notice</p>
-                    <p className="mt-1">
-                      This agent will operate based on the parameters you've set. Please ensure your account has sufficient funds and API access if applicable.
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Switch id="advanced" checked={advanced} onCheckedChange={setAdvanced} />
+                <Label htmlFor="advanced">Advanced Configuration</Label>
+              </div>
+              
+              {advanced && (
+                <div className="rounded-md border p-4 space-y-4">
+                  <div className="text-sm font-medium">Advanced Settings</div>
+                  <div className="grid gap-2">
+                    <Label>Custom Parameters</Label>
+                    <Textarea placeholder="Enter JSON configuration..." />
+                    <p className="text-xs text-muted-foreground">
+                      For advanced users. Enter custom JSON parameters for fine-tuning.
                     </p>
                   </div>
                 </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={prevStep}>
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                </Button>
-                <Button onClick={handleSubmit}>
-                  Create Agent <Check className="ml-2 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          )}
-        </div>
+              )}
+              
+              <div className="flex items-center p-4 rounded-md bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-400">
+                <CheckCircle2 className="h-5 w-5 mr-2 flex-shrink-0" />
+                <div className="text-sm">
+                  <p className="font-medium">Ready to Create</p>
+                  <p className="mt-1">
+                    Your agent will be ready to start trading immediately after creation. You can pause it any time.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+            
+            <CardFooter className="flex justify-between">
+              <Button variant="outline" type="button" onClick={() => navigate('/agents')}>
+                Cancel
+              </Button>
+              <Button type="submit">
+                Create Agent
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
       </div>
     </DashboardLayout>
   );

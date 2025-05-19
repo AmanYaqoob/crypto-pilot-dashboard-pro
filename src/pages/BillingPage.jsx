@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -44,7 +43,7 @@ export default function BillingPage() {
     {
       id: 'enterprise',
       name: 'Enterprise',
-      price: 199,
+      price: 'Custom',
       billingPeriod: 'monthly',
       description: 'For institutional traders and professional firms',
       features: [
